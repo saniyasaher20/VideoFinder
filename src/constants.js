@@ -1,6 +1,3 @@
-export const GOOGLE_AUTH_KEY = "AIzaSyALHqw0YgPY14sdqU2grO01i6WKlWQDCis";
-
-
 // export const VIDEOS_API = "https://youtube138.p.rapidapi.com/video/details/?id=kJQP7kiw5Fk&hl=en&gl=US"
 
 export const VIDEOS_API = "https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=IN&key=" + GOOGLE_AUTH_KEY;
