@@ -27,7 +27,7 @@ const VideoContainer = () => {
 
     if (videos == []) return null;
     return (
-        <div className='flex flex-wrap justify-center'>
+        <div className='flex flex-wrap justify-evenly'>
             {
                 videos.map((video) => {
                     return (

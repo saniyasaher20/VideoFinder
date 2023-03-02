@@ -7,7 +7,7 @@ const VideoCard = (videos) => {
     // console.log(videos);
 
     return (
-        <div key={videos.id} className='w-96 mx-2 mb-9' >
+        <div key={videos.id} className='w-80 mx-2 my-5 ' >
             <img className='rounded-xl' src={videos?.snippet?.thumbnails?.medium?.url} alt="" />
             <div className="info mt-2 flex gap-2">
                 {/* <div className='rounded-full w-8 h-8 bg-red-800'></div> */}
