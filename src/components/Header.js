@@ -3,6 +3,7 @@ import { RxHamburgerMenu, RxMagnifyingGlass, RxPerson } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import YoutubeLogo from "../assets/img/YouTube-Logo.png";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,11 @@ const Header = () => {
           onClick={() => handleToggleMenu()}>
           <RxHamburgerMenu />
         </span>
-        <img className="" src={YoutubeLogo} alt="Youtube Logo" width={90} />
+        {/* error if using Link tag: Cannot destructure property 'basename' of 'react__WEBPACK_IMPORTED_MODULE_0__.useContext(...)' as it is null.
+        
+        <Link to="home"> */}
+        <img className="cursor-pointer" src={YoutubeLogo} alt="Youtube Logo" width={90} />
+        {/* </Link> */}
       </span>
 
       <span className="flex justify-center col-span-6">

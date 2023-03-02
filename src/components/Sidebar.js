@@ -2,6 +2,7 @@ import React from 'react'
 import { MdHomeFilled, MdOutlineVideoLibrary, MdOutlineTimelapse, MdOutlineSmartDisplay, MdOutlineWatchLater, MdOutlineSubscriptions, MdOutlineHistory, MdOutlineThumbUp, MdOutlineLocalFireDepartment, MdOutlineMusicNote, MdOutlineMovie, MdLiveTv, MdOutlineVideogameAsset, MdOutlineSportsTennis, MdLightbulbOutline, MdOutlineNote, MdOutlineShoppingBag } from "react-icons/md";
 import { useSelector } from 'react-redux';
 import store from "../utils/store";
+import { NavLink } from "react-router-dom";
 
 // li tag to iterate the menus
 const LiTag = ({ item }) => {
@@ -22,15 +23,17 @@ const Sidebar = () => {
             0: {
                 name: "Home",
                 icon: <MdHomeFilled />,
-                route: "/home"
+                route: "/"
             },
             1: {
                 name: "Shorts",
-                icon: <MdOutlineTimelapse />
+                icon: <MdOutlineTimelapse />,
+                route: "/shorts"
             },
             2: {
                 name: "Subscriptions",
                 icon: <MdOutlineSubscriptions />,
+                route: "/subscriptions"
             }
         },
         user: {
@@ -94,41 +97,42 @@ const Sidebar = () => {
             }
         }
     }
-    const hrStyle = 'my-5';
+
+    let hrStyle = 'my-5';
+    let active = "!bg-red-800 underline";
+
     // Subscribe to the isMenuOpen value inside store
     const isMenuOpen = useSelector(store => store.app.isMenuOpen);
 
     // Early return
     if (!isMenuOpen) return null;
-
     return (
-        <div id='sidebar' className='py-3 w-48 h-[91vh] overflow-y-auto' >
+        <div id='sidebar' className='min-w-fit h-[91vh] overflow-y-auto overflow-x-clip' >
             <ul>
                 {/* Object.values returns array of values, use map after it. */}
 
                 {/* MAIN */}
                 {Object.values(menu.main).map((item) =>
-                    <LiTag key={item.name} item={item} />
+                    <NavLink key={item.name} to={item.route}
+                    className={({ isActive }) =>
+                            isActive ? "!bg-red-800 underline" : undefined
+                        } >
+                        <LiTag item={item} />
+                    </NavLink>
+
                 )}
 
                 {/* USER */}
                 <hr className={hrStyle} />
                 {Object.values(menu.user).map((item) =>
-                    <LiTag key={item.name} item={item} />
+                    <NavLink key={item.name} to="/">  <LiTag item={item} /> </NavLink>
                 )}
 
                 {/* EXPLORE */}
                 <hr className={hrStyle} />
                 <h3 className='text-base pl-3 pb-2'>Explore</h3>
                 {Object.values(menu.explore).map((item) =>
-                    <LiTag key={item.name} item={item} />
-                )}
-
-                {Object.values(menu.explore).map((item) =>
-                    <LiTag key={item.name} item={item} />
-                )}
-                {Object.values(menu.explore).map((item) =>
-                    <LiTag key={item.name} item={item} />
+                    <NavLink key={item.name} to="/">  <LiTag item={item} /> </NavLink>
                 )}
             </ul>
 
