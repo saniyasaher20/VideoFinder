@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { RxHamburgerMenu, RxMagnifyingGlass, RxPerson } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import YoutubeLogo from "../assets/img/YouTube-Logo.png";
 import { Link } from "react-router-dom";
+import { SEARCH_SUGGESTIONS_API, SEARCH_RESULTS_API, GOOGLE_AUTH_KEY } from "../constants";
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(true);
 
   // Handle menu toggle function
   const handleToggleMenu = () => {
@@ -14,10 +18,33 @@ const Header = () => {
     dispatch(toggleMenu())
   }
 
-  return (
-    <div className="grid grid-flow-col justify-between items-center py-2" id="header">
+  // Search suggestions API call fn
+  const getSearchSuggestions = async () => {
+    const response = await fetch(SEARCH_SUGGESTIONS_API + searchQuery);
+    const json = await response.json();
+    setSuggestions(json[1])
+  }
 
-      <span className="flex items-center gap-4 text-2xl col-span-2">
+  // Search Results API call fn
+  const getSearchResults = async () => {
+    const response = await fetch(SEARCH_RESULTS_API + searchQuery + "&key=" + GOOGLE_AUTH_KEY)
+    const json = await response.json();
+    setSuggestions()
+  }
+
+  // Search Input Debouncing
+  useEffect(() => {
+    // if difference between two key strokes is less than 200ms - decline API call
+    const timer = setTimeout(() => getSearchSuggestions(), 150)
+    return () => {
+      clearTimeout(timer);
+    }
+  }, [searchQuery])
+
+  return (
+    <div className="flex justify-between items-center py-2" id="header">
+
+      <span className="flex items-center gap-4 text-2xl">
         <span className="p-2 rounded-full hover:bg-gray-200 cursor-pointer"
           onClick={() => handleToggleMenu()}>
           <RxHamburgerMenu />
@@ -29,20 +56,28 @@ const Header = () => {
         {/* </Link> */}
       </span>
 
-      <span className="flex justify-center col-span-6">
-        <input
-          className="rounded-l-full w-2/4 border border-gray-300 shadow-inner px-5 py-2 focus-visible:border-blue-400 focus-visible:outline-0"
-          type="text"
-          name="search"
-          id="search"
-          placeholder="Search"
-        />
-        <button className="border-gray-300 rounded-r-full text-xl bg-gray-100 px-5 hover:bg-gray-200">
-          <RxMagnifyingGlass />
-        </button>
+      {/* Search Bar */}
+      <span className="mx-auto basis-1/3 relative">
+        <span className="flex">
+          <input
+            className="rounded-l-full w-4/6 border border-gray-300 shadow-inner px-5 py-2 focus-visible:border-blue-400 focus-visible:outline-0"
+            type="text"
+            name="search"
+            id="search"
+            placeholder="Search"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            onFocus={()=>{setShowSuggestions(true)}}
+            onBlur={()=>{setShowSuggestions(false)}}
+          />
+          <button className="border-gray-300 rounded-r-full text-xl bg-gray-100 px-5 hover:bg-gray-200">
+            <RxMagnifyingGlass />
+          </button>
+        </span>
+        {showSuggestions && <ul className="w-4/6 shadow-md rounded-lg ml-3 absolute bg-white">{suggestions.map(s => <li className="my-1 hover:bg-gray-100 px-2 py-1 cursor-pointer">{s}</li>)}</ul>}
       </span>
 
-      <span className="text-2xl ml-auto col-span-3">
+      <span className="text-2xl">
         <RxPerson />
       </span>
     </div>

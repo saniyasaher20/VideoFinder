@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { VIDEOS_API, VIDEO_CATEGORIES_API, CHANNELS_API } from "../constants";
-import {VIDEOS_API_DATA} from "../utils/apiData";
-import VideoCard from './VideoCard';
+import { VIDEOS_API_DATA } from "../utils/apiData";
+import VideoCard, { AdVideoCard } from './VideoCard';
 import { Link } from "react-router-dom";
 
 const VideoContainer = () => {
@@ -28,12 +28,17 @@ const VideoContainer = () => {
     if (videos == []) return null;
     return (
         <div className='flex flex-wrap justify-evenly'>
+            {videos[0] && <Link key="adVideCardId" to={'/watch?v=' + videos[4].id}> <AdVideoCard {...videos[4]} /> </Link>}
             {
                 videos.map((video) => {
                     return (
-                        <Link key={video.id} to={'/watch?v=' + video.id}>
-                            <VideoCard {...video} />
-                        </Link>
+                        <>
+                            {/* HOC - higher order component - Advertisement card */}
+
+                            <Link key={video.id} to={'/watch?v=' + video.id}>
+                                <VideoCard {...video} />
+                            </Link>
+                        </>
                     )
                 })
             }
