@@ -2,7 +2,7 @@ export const VIDEOS_API = "https://youtube.googleapis.com/youtube/v3/videos?part
 
 
 // export const CHANNELS_API = "https://youtube.googleapis.com/youtube/v3/channels&maxResults=50&id="+ channelId +"&?key=" + process.env.REACT_APP_GOOGLE_AUTH_KEY;
-export const SEARCH_SUGGESTIONS_API = "http://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
+export const SEARCH_SUGGESTIONS_API = "https://suggestqueries.google.com/complete/search?client=firefox&ds=yt&q="
 export const SEARCH_RESULTS_API = "https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=25&q=";
 
 
