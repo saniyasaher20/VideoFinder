@@ -28,14 +28,14 @@ const VideoContainer = () => {
     if (videos == []) return null;
     return (
         <div className='flex flex-wrap justify-evenly'>
-            {videos[0] && <Link key="adVideCardId" to={'/watch?v=' + videos[4].id}> <AdVideoCard {...videos[4]} /> </Link>}
+            {videos[4] && <Link key="adVideCardId" to={'/watch?v=' + videos[4].id} state={{...videos[4]}}> <AdVideoCard {...videos[4]} /> </Link>}
             {
                 videos.map((video) => {
                     return (
                         <>
                             {/* HOC - higher order component - Advertisement card */}
 
-                            <Link key={video.id} to={'/watch?v=' + video.id}>
+                            <Link key={video.id} to={'/watch?v=' + video.id} state={{...video}}>
                                 <VideoCard {...video} />
                             </Link>
                         </>

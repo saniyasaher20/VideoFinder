@@ -25,10 +25,10 @@ const VideoCard = (video) => {
 
 export const AdVideoCard = (video) => {
     return (
-        <div className="shadow-md shadow rounded-lg">
+        <div className="shadow-md rounded-lg">
             <p className='px-3 pt-1'>HOC component</p>
-             <VideoCard {...video} />
-       </div>
+            <VideoCard {...video} />
+        </div>
     )
 }
 

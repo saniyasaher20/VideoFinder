@@ -59,11 +59,11 @@ const Header = () => {
   }
 
   // Search Results API call fn
-  const getSearchResults = async () => {
-    const response = await fetch(SEARCH_RESULTS_API + searchQuery + "&key=" + process.env.REACT_APP_GOOGLE_AUTH_KEY)
-    const json = await response.json();
-    setSuggestions()
-  }
+  // const getSearchResults = async () => {
+  //   const response = await fetch(SEARCH_RESULTS_API + searchQuery + "&key=" + process.env.REACT_APP_GOOGLE_AUTH_KEY)
+  //   const json = await response.json();
+  //   setSuggestions()
+  // }
 
   return (
     <div className="flex justify-between items-center py-2" id="header">
@@ -82,6 +82,7 @@ const Header = () => {
 
       {/* Search Bar */}
       <span className="mx-auto basis-1/3 relative">
+        <p className="text-xs ml-3 mb-1 text-gray-500">Type "javascript" to see it work, if you do not have CORS extension enabled.</p>
         <span className="flex">
           <input
             className="rounded-l-full w-4/6 border border-gray-300 shadow-inner px-5 py-2 focus-visible:border-blue-400 focus-visible:outline-0"
